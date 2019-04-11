@@ -95,7 +95,7 @@ Laravel Shop 功能如下：
     composer update
 
 ### 2.生成配置文件
-    cp .env.example .env
+    copy .env.example .env
 
 ### 3.生成密钥
     php artisan key:generate
