@@ -106,4 +106,12 @@ Laravel Shop 功能如下：
     如果admin_users表里没有数据，手工执行database目录下的admin.sql文件中的sql语句
     
    > 具体安装教程可参考  [基于 Laravel 一步一步构建一套电商系统](https://java.ctolib.com/article/wiki/100359)
+   
+### 5.如访问前端出现 The Mix manifest does not exist.
+    请先安装node.js
+    然后执行 npm install cross-env --save-dev
+    之后再执行 npm i webpack-laravel-mix-manifest --save-dev
+    接着执行 npm i
+    最后执行 npm run watch
+    然后刷新前端页面即可
 
