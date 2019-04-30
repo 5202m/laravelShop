@@ -2,11 +2,22 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Exceptions\InvalidRequestException;
+use App\Exceptions\RegisterException;
+use App\Exceptions\SystemException;
 use App\Models\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
+use App\Services\CaptchaService;
+use App\Services\SmsService;
+//use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
+use App\Http\Requests\Request;
+//use Illuminate\Validation\ValidationException;
 
 class RegisterController extends Controller
 {
