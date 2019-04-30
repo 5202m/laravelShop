@@ -3,14 +3,14 @@
 
 @section('content')
 <div class="row">
-<div class="col-lg-10 offset-lg-1">
-<div class="card">
-  <div class="card-body product-info">
+<div class="col-lg-10 col-lg-offset-1">
+<div class="panel panel-default">
+  <div class="panel-body product-info">
     <div class="row">
-      <div class="col-5">
+      <div class="col-sm-5">
         <img class="cover" src="{{ $product->image_url }}" alt="">
       </div>
-      <div class="col-7">
+      <div class="col-sm-7">
         <div class="title">{{ $product->title }}</div>
         <div class="price"><label>价格</label><em>￥</em><span>{{ $product->price }}</span></div>
         <div class="sales_and_reviews">

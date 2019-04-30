@@ -13,6 +13,10 @@ class ProductsController extends Controller
     {
         // 创建一个查询构造器
         $builder = Product::query()->where('on_sale', true);
+        //类目筛选
+        if ($request->input('category_id') && $category = Category::find($request->input('category_id'))) {
+            $builder->category($category);
+        }
         // 判断是否有提交 search 参数，如果有就赋值给 $search 变量
         // search 参数用来模糊搜索商品
         if ($search = $request->input('search', '')) {
@@ -45,6 +49,7 @@ class ProductsController extends Controller
 
         return view('products.index', [
             'products' => $products,
+            'category' => $category ?? null,
             'filters'  => [
                 'search' => $search,
                 'order'  => $order,

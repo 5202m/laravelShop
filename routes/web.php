@@ -11,11 +11,37 @@
 |
 */
 
+//用户登录注册
+Auth::routes();
+
+//登录
+$this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
+$this->post('login', 'Auth\LoginController@login');
+$this->post('logout', 'Auth\LoginController@logout')->name('logout');
+
+//重写注册为手机短信
+Route::get('register', 'Auth\RegisterController@showPart1')->name('register');
+Route::post('checkCaptcha', 'Auth\RegisterController@sendSms')->name('register.checkCaptcha');
+Route::get('register2', 'Auth\RegisterController@showPart2')->name('register2');
+Route::post('register3', 'Auth\RegisterController@showPart3')->name('register3');
+
+//重写忘记密码为手机短信验证,并且保留原来的邮箱找回逻辑和路由
+Route::prefix('sms')->group(function () {
+    $this->get('password/sms', 'Auth\ForgotPasswordController@showSendSmsForm')
+        ->name('sms.password.sms'); //显示填写手机号表单
+    $this->post('password/check', 'Auth\ForgotPasswordController@sendResetSms')
+        ->name('sms.password.check'); //对比验证码，发送手机短信
+    $this->get('password/reset', 'Auth\ForgotPasswordController@showResetForm')
+        ->name('sms.password.resetform'); //显示重置新密码表单
+    $this->post('password/reset', 'Auth\ForgotPasswordController@smsResetPassword')
+        ->name('sms.password.reset'); //更新用户新密码
+});
+
 Route::redirect('/', '/products')->name('root');
 Route::get('products', 'ProductsController@index')->name('products.index');
 Route::get('products', 'ProductsController@index')->name('products.index');
 
-Auth::routes(['verify' => true]);
+//Auth::routes(['verify' => true]);
 
 Route::group(['middleware' => ['auth', 'verified']], function() {
     Route::get('user_addresses', 'UserAddressesController@index')->name('user_addresses.index');

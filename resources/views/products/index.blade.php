@@ -3,35 +3,32 @@
 
 @section('content')
 <div class="row">
-<div class="col-lg-10 offset-lg-1">
-<div class="card">
-  <div class="card-body">
+<div class="col-lg-10 col-lg-offset-1">
+<div class="panel panel-default">
+  <div class="panel-body">
     <!-- 筛选组件开始 -->
-    <form action="{{ route('products.index') }}" class="search-form">
-      <div class="form-row">
-        <div class="col-md-9">
-          <div class="form-row">
-            <div class="col-auto"><input type="text" class="form-control form-control-sm" name="search" placeholder="搜索"></div>
-            <div class="col-auto"><button class="btn btn-primary btn-sm">搜索</button></div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <select name="order" class="form-control form-control-sm float-right">
-            <option value="">排序方式</option>
-            <option value="price_asc">价格从低到高</option>
-            <option value="price_desc">价格从高到低</option>
-            <option value="sold_count_desc">销量从高到低</option>
-            <option value="sold_count_asc">销量从低到高</option>
-            <option value="rating_desc">评价从高到低</option>
-            <option value="rating_asc">评价从低到高</option>
-          </select>
-        </div>
-      </div>
+    <div class="row">
+    <form action="{{ route('products.index') }}" class="form-inline search-form">
+      <input type="hidden" name="filters">
+      <a href="https://shop.wuxxin.com/products" class="all-products">全部</a>>
+      <input type="text" class="form-control input-sm" name="search" placeholder="搜索">
+      <button class="btn btn-primary btn-sm">搜索</button>
+      <select name="order" class="form-control input-sm pull-right">
+        <option value="">排序方式</option>
+        <option value="price_asc">价格从低到高</option>
+        <option value="price_desc">价格从高到低</option>
+        <option value="sold_count_desc">销量从高到低</option>
+        <option value="sold_count_asc">销量从低到高</option>
+        <option value="rating_desc">评价从高到低</option>
+        <option value="rating_asc">评价从低到高</option>
+      </select>
     </form>
+    </div>
     <!-- 筛选组件结束 -->
+    <div class="filters"></div>
     <div class="row products-list">
       @foreach($products as $product)
-        <div class="col-3 product-item">
+        <div class="col-xs-3 product-item">
           <div class="product-content">
             <div class="top">
               <div class="img">
@@ -52,7 +49,7 @@
         </div>
       @endforeach
     </div>
-    <div class="float-right">{{ $products->appends($filters)->render() }}</div>  <!-- 只需要添加这一行 -->
+    <div class="pull-right">{{ $products->appends($filters)->render() }}</div>  <!-- 只需要添加这一行 -->
   </div>
 </div>
 </div>
