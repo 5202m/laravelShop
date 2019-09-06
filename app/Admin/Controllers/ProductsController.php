@@ -63,7 +63,17 @@ class ProductsController extends Controller
     {
         $grid = new Grid(new Product);
 
-        $grid->id('ID')->sortable();
+        //添加筛选条件
+        $grid->filter(function($filter){
+            $filter->column(1/2, function($filter){
+                $filter->like('title')->placeholder('请输入商品名称');
+                $filter->equal('on_sale')->select(['1' => '是', '0' => '否']);
+            });
+        });
+        //排序
+        $grid->model()->orderBy('created_at', 'desc');
+
+        $grid->id('ID');
         $grid->title('商品名称');
         $grid->on_sale('已上架')->display(function ($value) {
             return $value ? '是' : '否';
